@@ -2,6 +2,7 @@
 
 namespace Dobrik\LaravelEasyForm\Forms;
 
+use Dobrik\LaravelEasyForm\Exceptions\InvalidAliasException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Dobrik\LaravelEasyForm\Forms\Interfaces\PluginInterface;
@@ -12,14 +13,44 @@ use Dobrik\LaravelEasyForm\Forms\Interfaces\PluginInterface;
  */
 class Factory
 {
+    private $aliases = [
+        'plugins' => [
+            'ckeditor' => Plugins\Ckeditor::class,
+            'color_picker' => Plugins\ColorPicker::class,
+            'datetimepicker' => Plugins\Datetimepicker::class,
+            'select2' => Plugins\Select2::class,
+        ],
+        'html' => [
+            'div' => Html\Div::class,
+            'tab' => Html\Tab::class,
+            'tabs' => Html\Tabs::class,
+        ],
+        'inputs' => [
+            'button' => Inputs\Button::class,
+            'form' => Inputs\Form::class,
+            'image' => Inputs\Image::class,
+            'input' => Inputs\Input::class,
+            'select' => Inputs\Select::class,
+            'textarea' => Inputs\Textarea::class,
+        ],
+    ];
+
+    public function __construct(array $aliases = [])
+    {
+        $this->aliases = array_merge($this->aliases, $aliases);
+    }
+
     /**
-     * @param string $class Name of input|html|plugin class.
+     * @param string $alias Name of input|html|plugin class.
      * @param string $type Part of namespace inputs|html|plugins.
      */
-    public function make(string $class, string $type)
+    public function make(string $alias, string $type)
     {
-        $class = ucfirst(camel_case(trim($class)));
-        $class = "Dobrik\\LaravelEasyForm\\Forms\\$type\\$class";
+        if (!array_key_exists($alias, $this->aliases[$type])) {
+            throw new InvalidAliasException(sprintf('Alias "%s" for type "%s" not registered', $alias, $type));
+        }
+
+        $class = $this->aliases[$type][$alias];
         return new $class($this);
     }
 

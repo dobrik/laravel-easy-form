@@ -13,7 +13,7 @@ use Closure;
  * Class Generator
  * @package Dobrik\LaravelEasyForm\Forms
  */
-class Generator
+class Creator
 {
     /**
      * @var array
@@ -31,13 +31,27 @@ class Generator
     /**
      * Generator constructor.
      * @param Factory $factory
-     * @param Request $request
      */
-    public function __construct(Factory $factory, Request $request)
+    public function __construct(Factory $factory)
     {
         $this->factory = $factory;
+    }
+
+    public function registerFormConfig(array $config)
+    {
+        $this->config = array_merge($this->config, $config);
+        return $this;
+    }
+
+    public function setRequest(Request $request)
+    {
         $this->request = $request;
-        $this->config = config('forms');
+        return $this;
+    }
+
+    private function getRequest()
+    {
+        return $this->request;
     }
 
     /**
@@ -126,7 +140,7 @@ class Generator
         $field = $this->factory->autoMake($input_name, $field_data['type'], $field_data['title']);
 
         switch (true) {
-            case ($value = $this->request->old(array_key(Arr::dot($input_name)))) !== null:
+            case ($value = $this->getRequest()->old(array_key(Arr::dot($input_name)))) !== null:
                 break;
             case $model !== null:
                 $value = null === $locale ? $model->getAttribute($field_data['name']) : $model->getLocalizedAttribute($locale, $field_data['name']);
