@@ -10,7 +10,7 @@
   "license": "GNU General Public License v3.0",
   "require": {
     "php": ">=7.2",
-    "symfony/var-dumper": ">=4.0"
+    "illuminate/support": ">=5.7.*"
   },
   "authors": [
     {
@@ -20,7 +20,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Dobrik\\LaravelEasyForms\\": "src/"
+      "Dobrik\\LaravelEasyForm\\": "src/"
     }
   }
 }
