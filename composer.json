@@ -7,7 +7,7 @@
     "laravel"
   ],
   "homepage": "https://github.com/dobrik",
-  "license": "GNU",
+  "license": "GPL-3.0-or-later",
   "require": {
     "php": ">=7.2"
   },
