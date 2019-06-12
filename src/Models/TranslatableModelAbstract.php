@@ -71,7 +71,7 @@ abstract class TranslatableModelAbstract extends Model
             return;
         }
         $isUpdated = false;
-        foreach (config('app.locales') as $locale) {
+        foreach (config('easy_form.config.locales') as $locale) {
             $_data = [];
             foreach ($this->request_translations as $attr => $translations) {
                 $_data[$attr] = $translations[$locale];

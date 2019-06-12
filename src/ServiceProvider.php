@@ -8,6 +8,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->mergeConfigFrom($this->getAliasesConfigPath(), 'easy_form.aliases');
         $this->mergeConfigFrom($this->getFormsConfigPath(), 'easy_form.forms');
+        $this->mergeConfigFrom($this->getMainConfigPath(), 'easy_form.config');
 
         $this->app->singleton(Creator::class, function () {
             $configResolver = $this->app->make('config');
@@ -25,9 +26,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $this->publishes([
             $this->getAliasesConfigPath() => config_path('easy_form/aliases.php'),
+            $this->getMainConfigPath() => config_path('easy_form/config.php'),
             $this->getFormsConfigPath() => config_path('easy_form/forms.php'),
             $this->getViewsPath() => resource_path('views/vendor/easy_form'),
         ]);
+    }
+
+    private function getMainConfigPath()
+    {
+        return __DIR__ . '/resources/config/config.php';
     }
 
     private function getAliasesConfigPath()

@@ -47,11 +47,11 @@ class Factory
      */
     public function make(string $alias, string $type)
     {
-        if (!array_key_exists($alias, $this->aliases[$type])) {
+        if (!array_key_exists(strtolower($alias), $this->aliases[$type])) {
             throw new InvalidAliasException(sprintf('Alias "%s" for type "%s" not registered', $alias, $type));
         }
 
-        $class = $this->aliases[$type][$alias];
+        $class = $this->aliases[$type][strtolower($alias)];
         return new $class($this);
     }
 

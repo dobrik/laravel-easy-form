@@ -96,7 +96,7 @@ class Creator
                     throw new \InvalidArgumentException(sprintf('Model must be instance of "TranslatableModelAbstract", "%s" given', get_parent_class($model)));
                 }
                 $field = $this->factory->html('tabs')->setLabel($field_config['title']);
-                foreach (config('app.locales') as $locale) {
+                foreach (config('easy_form.config.locales') as $locale) {
                     $fieldObject = $this->prepareField($field_config, $model, $locale);
                     $field->addTab(
                         $this->factory->html('tab')->setTitle($locale)->setId($field_config['name'] . '_' . $locale)->setContent($fieldObject)
@@ -141,7 +141,7 @@ class Creator
         $field = $this->factory->autoMake($input_name, $field_data['type'], $field_data['title']);
 
         switch (true) {
-            case ($value = $this->getRequest()->old(array_key(Arr::dot($input_name)))) !== null:
+            case ($value = $this->getRequest()->old(arrayToDot($input_name))) !== null:
                 break;
             case $model !== null:
                 $value = null === $locale ? $model->getAttribute($field_data['name']) : $model->getLocalizedAttribute($locale, $field_data['name']);
