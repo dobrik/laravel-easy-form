@@ -2,9 +2,9 @@
 
 namespace Dobrik\LaravelEasyForm;
 
-use Dobrik\LaravelEasyForm\Exceptions\InvalidAliasException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Dobrik\LaravelEasyForm\Exceptions\InvalidAliasException;
 use Dobrik\LaravelEasyForm\Forms\Interfaces\PluginInterface;
 
 /**

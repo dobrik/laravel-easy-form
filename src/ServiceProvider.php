@@ -2,9 +2,6 @@
 
 namespace Dobrik\LaravelEasyForm;
 
-use Dobrik\LaravelEasyForm\Forms\Creator;
-use Dobrik\LaravelEasyForm\Forms\Factory;
-
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function register()
