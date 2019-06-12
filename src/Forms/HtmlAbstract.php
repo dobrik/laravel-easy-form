@@ -2,6 +2,7 @@
 
 namespace Dobrik\LaravelEasyForm\Forms;
 
+use Dobrik\LaravelEasyForm\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
@@ -123,9 +124,10 @@ abstract class HtmlAbstract
         $class_name = get_class($this);
         $class_name_array = explode('\\', $class_name);
         $class_name_array = \array_slice($class_name_array, -2);
-        $template = 'creator';
-        foreach ($class_name_array as $item) {
-            $template .= '.' . strtolower(Str::snake($item, '_'));
+        $template = 'easy_form::';
+        foreach ($class_name_array as $key => $item) {
+            $template .= $key === 0?'':'.';
+            $template .= strtolower(Str::snake($item, '_'));
         }
 
         if (view()->exists($template)) {

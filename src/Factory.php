@@ -4,6 +4,7 @@ namespace Dobrik\LaravelEasyForm;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
 use Dobrik\LaravelEasyForm\Exceptions\InvalidAliasException;
 use Dobrik\LaravelEasyForm\Forms\Interfaces\PluginInterface;
 
@@ -37,7 +38,7 @@ class Factory
 
     public function __construct(array $aliases = [])
     {
-        $this->aliases = array_merge($this->aliases, $aliases);
+        $this->aliases = array_merge_recursive($this->aliases, $aliases);
     }
 
     /**
