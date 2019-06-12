@@ -1,6 +1,6 @@
 <?php
 
-namespace Dobrik\LaravelEasyForm\Forms;
+namespace Dobrik\LaravelEasyForm;
 
 use Dobrik\LaravelEasyForm\Exceptions\InvalidAliasException;
 use Illuminate\Support\Arr;
@@ -15,23 +15,23 @@ class Factory
 {
     private $aliases = [
         'plugins' => [
-            'ckeditor' => Plugins\Ckeditor::class,
-            'color_picker' => Plugins\ColorPicker::class,
-            'datetimepicker' => Plugins\Datetimepicker::class,
-            'select2' => Plugins\Select2::class,
+            'ckeditor' => Forms\Plugins\Ckeditor::class,
+            'color_picker' => Forms\Plugins\ColorPicker::class,
+            'datetimepicker' => Forms\Plugins\Datetimepicker::class,
+            'select2' => Forms\Plugins\Select2::class,
         ],
         'html' => [
-            'div' => Html\Div::class,
-            'tab' => Html\Tab::class,
-            'tabs' => Html\Tabs::class,
+            'div' => Forms\Html\Div::class,
+            'tab' => Forms\Html\Tab::class,
+            'tabs' => Forms\Html\Tabs::class,
         ],
         'inputs' => [
-            'button' => Inputs\Button::class,
-            'form' => Inputs\Form::class,
-            'image' => Inputs\Image::class,
-            'input' => Inputs\Input::class,
-            'select' => Inputs\Select::class,
-            'textarea' => Inputs\Textarea::class,
+            'button' => Forms\Inputs\Button::class,
+            'form' => Forms\Inputs\Form::class,
+            'image' => Forms\Inputs\Image::class,
+            'input' => Forms\Inputs\Input::class,
+            'select' => Forms\Inputs\Select::class,
+            'textarea' => Forms\Inputs\Textarea::class,
         ],
     ];
 

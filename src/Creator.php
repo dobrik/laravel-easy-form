@@ -1,7 +1,8 @@
 <?php
 
-namespace Dobrik\LaravelEasyForm\Forms;
+namespace Dobrik\LaravelEasyForm;
 
+use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
 use Dobrik\LaravelEasyForm\Models\TranslatableModelAbstract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
