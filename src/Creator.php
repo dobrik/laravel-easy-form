@@ -39,7 +39,7 @@ class Creator
      * @param Factory $factory
      * @param Illuminate\Config\Repository $configRepository
      */
-    public function __construct(Factory $factory, Illuminate\Config\Repository $configRepository)
+    public function __construct(Factory $factory, \Illuminate\Config\Repository $configRepository)
     {
         $this->factory = $factory;
         $this->configRepository = $configRepository;
@@ -105,7 +105,7 @@ class Creator
                     throw new \InvalidArgumentException(sprintf('Model must be instance of "TranslatableModelAbstract", "%s" given', get_parent_class($model)));
                 }
                 $field = $this->factory->html('tabs')->setLabel($field_config['title']);
-                foreach ($this->configRepository('app.locales') as $locale) {
+                foreach ($this->configRepository->get('easy_form.config.locales') as $locale) {
                     $fieldObject = $this->prepareField($field_config, $model, $locale);
                     $field->addTab(
                         $this->factory->html('tab')->setTitle($locale)->setId($field_config['name'] . '_' . $locale)->setContent($fieldObject)

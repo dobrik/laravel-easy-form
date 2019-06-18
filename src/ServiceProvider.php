@@ -10,7 +10,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->mergeConfigFrom($this->getFormsConfigPath(), 'easy_form.forms');
         $this->mergeConfigFrom($this->getMainConfigPath(), 'easy_form.config');
 
-        $this->app->singletone(Factory::class, function () {
+        $this->app->singleton(Factory::class, function () {
             $factory = new Factory();
             return $factory->mergeAliases($this->app->make('config')->get('easy_form.aliases'));
         });
