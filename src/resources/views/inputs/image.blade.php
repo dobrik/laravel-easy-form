@@ -1,11 +1,16 @@
 <div class="row">
     <div class="col-md-12 form-group">
-        <label class="btn btn-default">
+        <label class="btn">
             <p><b>Image</b></p>
             <p><b>{{ $attributes['label'] }}</b></p>
             <img id="{{ $id = $object->getId() }}"
                  src="{{  asset($object->getValue()?$object->getValue():'vendor/easy_form/assets/images/no_image.png') }}"
                  style="max-height: 150px; max-width: 150px;"/>
+            <p>
+                <a href="#" onclick="document.querySelector('#{{ $id }}_input').click(); event.preventDefault();" class="btn btn-primary">
+                    Load Image
+                </a>
+            </p>
             <input type="file" id="{{ $id }}_input" name="{{ $attributes['name'] }}" hidden>
             @if($object->getValue())
                 <p>
