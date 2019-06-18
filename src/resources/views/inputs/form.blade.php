@@ -8,7 +8,7 @@
             </ul>
         </div>
     @endif
-    <div class="col-md-12" data-id="{{ $attributes['id'] }}">
+    <div class="col-md-12" id="{{ $id = $object->getId() }}">
         <form action="{{ $action }}" method="{{ $method }}"
               enctype="multipart/form-data">
             <div class="col-md-12">{!! $buttons !!}</div>
@@ -21,7 +21,7 @@
         @if($object->getAjax())
             <script>
                 $().ready(function () {
-                    $('div[data-id="{{ $attributes['id'] }}"]>form input[type="submit"]').click(function (e) {
+                    $('div#{{ $id }} form input[type="submit"]').click(function (e) {
                         $.ajax({
                             url: $('div[data-id="{{ $attributes['id'] }}"]>form').attr('action'),
                             method: '{{ strtolower($method) }}',

@@ -5,7 +5,7 @@
         filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
         filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{ csrf_token() }}'
     };
-    window.onload = function () {
+    $().ready(function () {
         CKEDITOR.replace('{{ $attributes['name'] }}', options);
-    }
+    });
 </script>
