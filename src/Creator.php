@@ -74,8 +74,8 @@ class Creator
     {
         $form_config = $this->getFormConfig($form_name);
 
-        $buttons[] = $this->factory->input('input')->setType('submit')->setName('')->setClass('btn btn-success pull-right')->setValue('Save');
-        $buttons = $this->factory->html('div')->setClass('form-group')->setContent($buttons);
+        $buttons[] = $this->factory->input('input')->setType('submit')->setName('')->setClass('btn btn-success')->setValue('Save');
+        $buttonsBlock = $this->factory->html('div')->setClass('form-group')->setContent($buttons);
 
         $tabs_main_obj = $this->factory->html('tabs')->setLabel('');
 
@@ -120,7 +120,7 @@ class Creator
         $tabs_main_obj->setTabs($main_tabs);
 
         $form = $this->factory->input('form');
-        $form->setButtons($buttons)->setContent($tabs_main_obj);
+        $form->setButtons($buttonsBlock)->setContent($tabs_main_obj);
 
         return $form;
     }

@@ -1,4 +1,13 @@
 <div class="container-fluid">
+    @if($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="col-md-12" data-id="{{ $attributes['id'] }}">
         <form action="{{ $action }}" method="{{ $method }}"
               enctype="multipart/form-data">
