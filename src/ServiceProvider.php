@@ -30,7 +30,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $this->getFormsConfigPath() => config_path('easy_form/forms.php'),
             $this->getViewsPath() => resource_path('views/vendor/easy_form'),
         ]);
-        $this->publiches([__DIR__ . '/resources/assets' => public_path('vendor/easy_form/assets')], 'assets');
+        $this->publishes([__DIR__ . '/resources/assets' => public_path('vendor/easy_form/assets')], 'assets');
     }
 
     private function getMainConfigPath()

@@ -1,4 +1,3 @@
-<script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 <script>
     var options = {
         filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
