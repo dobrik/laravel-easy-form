@@ -96,7 +96,7 @@ class Creator
                     throw new \InvalidArgumentException(sprintf('Model must be instance of "TranslatableModelAbstract", "%s" given', get_parent_class($model)));
                 }
                 $field = $this->factory->html('tabs')->setLabel($field_config['title']);
-                foreach (config('easy_form.config.locales') as $locale) {
+                foreach (config('app.locales') as $locale) {
                     $fieldObject = $this->prepareField($field_config, $model, $locale);
                     $field->addTab(
                         $this->factory->html('tab')->setTitle($locale)->setId($field_config['name'] . '_' . $locale)->setContent($fieldObject)
