@@ -4,7 +4,7 @@
             <p><b>Image</b></p>
             <p><b>{{ $attributes['label'] }}</b></p>
             <img id="{{ $id = $object->getId() }}"
-                 src="{{  asset($object->getValue()?$object->getValue():'/assets/images/no-image.png') }}"
+                 src="{{  asset($object->getValue()?$object->getValue():'vendor/easy_form/assets/images/no_image.png') }}"
                  style="max-height: 150px; max-width: 150px;"/>
             <input type="file" id="{{ $id }}_input" name="{{ $attributes['name'] }}" hidden>
             @if($object->getValue())
