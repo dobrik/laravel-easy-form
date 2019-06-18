@@ -15,8 +15,14 @@ class Tab extends HtmlAbstract
      * @var array
      */
     protected $required_attributes = [
-        'content', 'title', 'id'
+        'title', 'id'
     ];
+
+    public $attributes = [
+        'class' => 'nav-items'
+    ];
+
+    public $content;
 
     /**
      * @param array|string $data
@@ -30,14 +36,26 @@ class Tab extends HtmlAbstract
 
         if (\is_array($data)) {
             foreach ($data as $item) {
-                $this->attributes['content'] .= $item;
+                $this->content .= $item;
             }
             return $this;
         }
-        $this->attributes['content'] .= $data;
+        $this->content .= $data;
 
         return $this;
     }
+
+    public function setContent($data)
+    {
+        $this->content = $data;
+        return $this;
+    }
+
+    public function getContent()
+    {
+        return $this->content;
+    }
+
 
     /**
      * Add tabs plugin class.
@@ -49,7 +67,7 @@ class Tab extends HtmlAbstract
         if (null === $this->getClass()) {
             $this->setClass('');
         }
-        $this->attributes['class'] .= ' tab-pane';
+        $this->attributes['class'] .= ' tab-pane fade';
     }
 
     /**
@@ -59,6 +77,6 @@ class Tab extends HtmlAbstract
     public function getData(): array
     {
         $this->prepareTabClass();
-        return ['content' => Arr::pull($this->attributes, 'content')];
+        return ['content' => $this->getContent()];
     }
 }

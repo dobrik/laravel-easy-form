@@ -1,4 +1,4 @@
-<div class="row">
+<div class="container-fluid">
     <div class="col-md-12" data-id="{{ $attributes['id'] }}">
         <form action="{{ $action }}" method="{{ $method }}"
               enctype="multipart/form-data">

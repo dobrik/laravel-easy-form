@@ -71,7 +71,7 @@ class Creator
         $tabs_main_obj = $this->factory->html('tabs')->setLabel('');
 
         $main_tabs = [];
-        $main_tabs[1] = $this->factory->html('tab')->setId(1)->setTitle('Общее')->setContent('');
+        $main_tabs[1] = $this->factory->html('tab')->setId('tab_' . 1)->setTitle('Общее')->setContent('');
 
         if ($form_config->has('tabs')) {
             $tabs_data = $form_config->get('tabs');
@@ -82,9 +82,9 @@ class Creator
 
             foreach ($tabs_data as $tab_data) {
                 if (!empty($tab_data['callback']) && $tab_data['callback'] instanceof Closure) {
-                    $main_tabs[$tab_data['id']] = $this->factory->html('tab')->setId($tab_data['id'])->setTitle($tab_data['title'])->setContent($tab_data['callback']());
+                    $main_tabs[$tab_data['id']] = $this->factory->html('tab')->setId('tab_' . $tab_data['id'])->setTitle($tab_data['title'])->setContent($tab_data['callback']());
                 } else {
-                    $main_tabs[$tab_data['id']] = $this->factory->html('tab')->setId($tab_data['id'])->setTitle($tab_data['title']);
+                    $main_tabs[$tab_data['id']] = $this->factory->html('tab')->setId('tab_' . $tab_data['id'])->setTitle($tab_data['title']);
                 }
             }
         }

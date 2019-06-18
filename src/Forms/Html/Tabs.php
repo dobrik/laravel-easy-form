@@ -14,7 +14,7 @@ class Tabs extends HtmlAbstract
     /**
      * @var array
      */
-    public $attributes = ['class' => 'nav-tabs-custom'];
+    public $attributes = ['class' => 'nav nav-tabs'];
 
     /**
      * @var array
@@ -53,13 +53,8 @@ class Tabs extends HtmlAbstract
     {
         $has_active = false;
         foreach ($this->tabs as $key => $tab) {
-            if (Str::contains($tab->getClass(), 'active')) {
-                $has_active = true;
-                break;
-            }
-        }
-        if (!$has_active) {
-            $this->tabs[0]->setClass('active');
+            $tab->setClass('active show');
+            break;
         }
     }
 
@@ -69,11 +64,9 @@ class Tabs extends HtmlAbstract
      */
     public function setTabs(array $tabs): HtmlAbstract
     {
-        if (\is_array($tabs)) {
-            foreach ($tabs as $tab) {
-                if ($tab instanceof Tab) {
-                    $this->tabs[] = $tab;
-                }
+        foreach ($tabs as $tab) {
+            if ($tab instanceof Tab) {
+                $this->tabs[] = $tab;
             }
         }
 
