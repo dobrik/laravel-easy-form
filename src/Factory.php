@@ -36,9 +36,10 @@ class Factory
         ],
     ];
 
-    public function __construct(array $aliases = [])
+    public function mergeAliases(array $aliases)
     {
         $this->aliases = array_merge_recursive($this->aliases, $aliases);
+        return $this;
     }
 
     /**

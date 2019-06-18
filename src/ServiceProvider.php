@@ -10,11 +10,14 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->mergeConfigFrom($this->getFormsConfigPath(), 'easy_form.forms');
         $this->mergeConfigFrom($this->getMainConfigPath(), 'easy_form.config');
 
+        $this->app->singletone(Factory::class, function () {
+            $factory = new Factory();
+            return $factory->mergeAliases($this->app->make('config')->get('easy_form.aliases'));
+        });
+
         $this->app->singleton(Creator::class, function () {
-            $configResolver = $this->app->make('config');
-            $creator = new Creator(new Factory($configResolver->get('easy_form.aliases')));
-            return $creator->setRequest($this->app->make(\Illuminate\Http\Request::class))
-                ->registerFormConfig($configResolver->get('easy_form.forms'));
+            $creator = new Creator($this->app->make(Factory::class), $this->app->make('config'));
+            return $creator->setRequest($this->app->make(\Illuminate\Http\Request::class));
         }
         );
     }
