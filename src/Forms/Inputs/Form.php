@@ -13,7 +13,7 @@ class Form extends HtmlAbstract
     /**
      * @var array
      */
-    public $attributes = ['class' => 'form-control', 'action' => '?', 'method' => 'post'];
+    public $attributes = ['class' => 'form-control', 'action' => '?', 'method' => 'post', 'ajax' => false];
 
     /**
      * @var array
@@ -21,11 +21,6 @@ class Form extends HtmlAbstract
     protected $required_attributes = [
         'content'
     ];
-
-    /**
-     * @var boolean
-     */
-    private $isAjax = false;
 
     /**
      * @param HtmlAbstract $button
@@ -42,15 +37,6 @@ class Form extends HtmlAbstract
     }
 
     /**
-     * @return $this
-     */
-    public function ajax()
-    {
-        $this->isAjax = true;
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function getData(): array
@@ -59,8 +45,7 @@ class Form extends HtmlAbstract
             'form' => $this->getContent(),
             'buttons' => $this->getButtons(),
             'method' => $this->getMethod(),
-            'action' => $this->getAction(),
-            'ajax' => $this->isAjax,
+            'action' => $this->getAction()
         ];
     }
 }

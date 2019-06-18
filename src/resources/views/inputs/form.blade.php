@@ -18,15 +18,14 @@
                 @method($method)
             @endif
         </form>
-        @if($ajax == true)
+        @if($object->getAjax())
             <script>
                 $().ready(function () {
                     $('div[data-id="{{ $attributes['id'] }}"]>form input[type="submit"]').click(function (e) {
-
                         $.ajax({
                             url: $('div[data-id="{{ $attributes['id'] }}"]>form').attr('action'),
                             method: '{{ strtolower($method) }}',
-                            dataType: 'html',
+                            dataType: 'json',
                             data: $('div[data-id="{{ $attributes['id'] }}"]>form').serialize(),
                             success: function (response) {
                                 $('div[data-id="{{ $attributes['id'] }}"]').replaceWith(response);
