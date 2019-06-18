@@ -23,12 +23,14 @@
                 $().ready(function () {
                     $('div#{{ $id }} form input[type="submit"]').click(function (e) {
                         $.ajax({
-                            url: $('div[data-id="{{ $attributes['id'] }}"]>form').attr('action'),
+                            url: $('div#{{ $id }} form').attr('action'),
                             method: '{{ strtolower($method) }}',
-                            dataType: 'json',
-                            data: $('div[data-id="{{ $attributes['id'] }}"]>form').serialize(),
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: $('div#{{ $id }} form'),
                             success: function (response) {
-                                $('div[data-id="{{ $attributes['id'] }}"]').replaceWith(response);
+                                {{--$('div[data-id="{{ $attributes['id'] }}"]').replaceWith(response);--}}
                             }
                         });
 

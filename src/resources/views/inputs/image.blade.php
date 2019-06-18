@@ -7,7 +7,7 @@
                  src="{{  asset($object->getValue()?$object->getValue():'vendor/easy_form/assets/images/no_image.png') }}"
                  style="max-height: 150px; max-width: 150px;"/>
             <p>
-                <a href="#" onclick="document.querySelector('#{{ $id }}_input').click(); event.preventDefault();" class="btn btn-primary">
+                <a href="#" onclick="document.getElementById('{{ $id }}_input').click(); event.preventDefault();" class="btn btn-primary">
                     Load Image
                 </a>
             </p>
