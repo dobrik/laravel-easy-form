@@ -14,7 +14,7 @@ use Closure;
  * Class Generator
  * @package Dobrik\LaravelEasyForm\Forms
  */
-class Creator
+class Builder
 {
     /**
      * @var array

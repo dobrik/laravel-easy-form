@@ -24,5 +24,16 @@
     "psr-4": {
       "Dobrik\\LaravelEasyForm\\": "src/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dobrik\\LaravelEasyForm\\ServiceProvider"
+      ],
+      "aliases": {
+        "EasyForm": "Dobrik\\LaravelEasyForm\\Facade",
+        "EasyFormFactory": "Dobrik\\LaravelEasyForm\\FactoryFacade"
+      }
+    }
   }
 }

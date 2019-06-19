@@ -15,8 +15,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return $factory->mergeAliases($this->app->make('config')->get('easy_form.aliases'));
         });
 
-        $this->app->singleton(Creator::class, function () {
-            $creator = new Creator($this->app->make(Factory::class), $this->app->make('config'));
+        $this->app->singleton(Builder::class, function () {
+            $creator = new Builder($this->app->make(Factory::class), $this->app->make('config'));
             return $creator->setRequest($this->app->make(\Illuminate\Http\Request::class));
         }
         );
