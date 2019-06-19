@@ -19,7 +19,7 @@ class Tab extends HtmlAbstract
     ];
 
     public $attributes = [
-        'class' => 'nav-items'
+        'class' => 'tab-pane'
     ];
 
     public $content;
@@ -58,25 +58,11 @@ class Tab extends HtmlAbstract
 
 
     /**
-     * Add tabs plugin class.
-     * @throws \Throwable
-     * @return void
-     */
-    private function prepareTabClass(): void
-    {
-        if (null === $this->getClass()) {
-            $this->setClass('');
-        }
-        $this->attributes['class'] .= ' tab-pane fade';
-    }
-
-    /**
      * @throws \Throwable
      * @return array
      */
     public function getData(): array
     {
-        $this->prepareTabClass();
         return ['content' => $this->getContent()];
     }
 }
