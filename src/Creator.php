@@ -119,7 +119,7 @@ class Creator
 
         $tabs_main_obj->setTabs($main_tabs);
 
-        $form = $this->factory->input('form')->setAjax($form_config->get('ajax', false));
+        $form = $this->factory->input('form');
         $form->setButtons($buttonsBlock)->setContent($tabs_main_obj);
 
         return $form;

@@ -28,7 +28,6 @@
  */
 return [
     'blog' => [
-        'ajax' => true,
         'model' => null,
         'tabs' =>
             [
