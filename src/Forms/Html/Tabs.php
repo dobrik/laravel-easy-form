@@ -52,7 +52,7 @@ class Tabs extends HtmlAbstract
     private function checkActive(): void
     {
         foreach ($this->tabs as $key => $tab) {
-            $tab->setClass('active');
+            $tab->setClass($tab->getClass() . ' active');
             break;
         }
     }
