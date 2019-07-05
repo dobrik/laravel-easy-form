@@ -59,6 +59,7 @@ return [
                 'name' => 'background_color',
                 'title' => 'Background color',
                 'type' => 'Input',
+                'attributes' => ['style' => 'width: 50px;'],
                 'plugins' => ['color_picker']
             ],
             [

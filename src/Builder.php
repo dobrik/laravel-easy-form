@@ -167,6 +167,7 @@ class Builder
             }
         }
 
+        $field->attributes = array_merge($field_data['attributes'], $field->attributes);
         if ($field_data['callback'] !== null) {
             $field_data['callback']($field, $model);
         }
@@ -197,6 +198,10 @@ class Builder
 
         if (!array_key_exists('default', $field_config)) {
             $field_config['default'] = null;
+        }
+
+        if (!array_key_exists('attributes', $field_config) || !is_array($field_config['attributes'])) {
+            $field_config['attributes'] = [];
         }
 
         if (!array_key_exists('callback', $field_config) || !$field_config['callback'] instanceof Closure) {
