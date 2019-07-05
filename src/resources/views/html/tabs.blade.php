@@ -7,14 +7,14 @@
                 <a data-toggle="tab" aria-expanded="true"
                    href="#{{ $tab->attributes['id'] }}">{{ $tab->attributes['title'] }}</a>
             </li>
+        @empty
+        @endforelse
+        </ul>
+    @endif
+        <div class="tab-content">
+            @forelse($tabs as $key => $tab)
+                {!! $tab !!}
             @empty
             @endforelse
-            </ul>
-            @endif
-            <div class="tab-content">
-                @forelse($tabs as $key => $tab)
-                    {!! $tab !!}
-                @empty
-                @endforelse
-            </div>
+        </div>
 </div>
