@@ -33,18 +33,6 @@ class Select2 extends HtmlAbstract implements PluginInterface
     }
 
     /**
-     *
-     * Plugin has no body
-     *
-     * @param array $data
-     * @return string
-     */
-    protected function getView($data = []): string
-    {
-        return '';
-    }
-
-    /**
      * @param HtmlAbstract $parent
      * @return PluginInterface
      */
