@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="box box-default">
     @if($errors->any())
         <div class="alert alert-danger" role="alert">
             <ul>
@@ -8,7 +8,7 @@
             </ul>
         </div>
     @endif
-    <div class="col-md-12" id="{{ $object->getId() }}">
+    <div class="box-header with-border" id="{{ $object->getId() }}">
         <form action="{{ $action }}" method="{{ $method }}"
               enctype="multipart/form-data">
             <div class="col-md-12">{!! $buttons !!}</div>
