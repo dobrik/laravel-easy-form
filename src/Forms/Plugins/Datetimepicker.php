@@ -55,10 +55,4 @@ class Datetimepicker extends HtmlAbstract implements PluginInterface
     {
         return $this->parent;
     }
-
-
-    protected function getView($data = []): string
-    {
-        return '';
-    }
 }
