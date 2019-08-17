@@ -44,6 +44,7 @@ class Datetimepicker extends HtmlAbstract implements PluginInterface
     public function setParent(HtmlAbstract $parent): PluginInterface
     {
         $this->parent = $parent;
+        $parent->setClass($parent->getClass() . ' datetimepicker');
         return $this;
     }
 
