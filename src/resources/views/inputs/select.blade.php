@@ -15,7 +15,7 @@
     @else
         @forelse($values as $value => $title)
             <option
-                    @if($current_value == $value)
+                    @if($current_value === $value)
                     selected
                     @endif
                     value="{{ $value }}">{{ $title }}</option>
