@@ -2,7 +2,9 @@
 
 namespace Dobrik\LaravelEasyForm;
 
+use Dobrik\LaravelEasyForm\Exceptions\InvalidFilterException;
 use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
+use Dobrik\LaravelEasyForm\Forms\Interfaces\FilterInterface;
 use Dobrik\LaravelEasyForm\Models\TranslatableModelAbstract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -67,8 +69,8 @@ class Builder
     /**
      * @param string $form_name
      * @param null|Model $model
-     * @throws \InvalidArgumentException
      * @return HtmlAbstract
+     * @throws \InvalidArgumentException
      */
     public function create(string $form_name, Model $model = null): HtmlAbstract
     {
@@ -127,8 +129,8 @@ class Builder
 
     /**
      * @param string $form_name
-     * @throws \InvalidArgumentException
      * @return Collection
+     * @throws \InvalidArgumentException
      */
     private function getFormConfig(string $form_name): Collection
     {
@@ -172,6 +174,11 @@ class Builder
             $field_data['callback']($field, $model);
         }
 
+        /** @var FilterInterface $filter */
+        foreach ($field_data['filters'] as $filter) {
+            $filter->apply($field, $model);
+        }
+
         foreach ($field_data['plugins'] as $plugin) {
             $field->append($this->factory->plugin($plugin)->setName($input_name)->setParent($field))->setId($field->getId());
         }
@@ -208,6 +215,14 @@ class Builder
             $field_config['callback'] = null;
         }
 
+        $filters = [];
+        if (!array_key_exists('filters', $field_config)) {
+            foreach ((array)$field_config['filters'] as $key => $filter) {
+                $filters[] = $this->resolveFilterObject($filter);
+            }
+        }
+        $field_config['filters'] = $filters;
+
         return $field_config;
     }
 
@@ -216,5 +231,14 @@ class Builder
         foreach ($this->configRepository->get('easy_form.config.forms') as $form) {
             $this->registerFormConfig($this->configRepository->get($form));
         }
+    }
+
+    private function resolveFilterObject($filter): FilterInterface
+    {
+        if (!class_exists($filter)) {
+            throw new InvalidFilterException(sprintf('Filter %s does not exists', $filter));
+        }
+
+        return new $filter;
     }
 }
