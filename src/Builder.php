@@ -92,11 +92,16 @@ class Builder
             }));
 
             foreach ($tabs_data as $tab_data) {
-                if (!empty($tab_data['callback']) && $tab_data['callback'] instanceof Closure) {
-                    $main_tabs[$tab_data['id']] = $this->factory->html('tab')->setId('tab_' . $tab_data['id'])->setTitle($tab_data['title'])->setContent($tab_data['callback']());
+                $tab_data = $this->prepareTabConfig($tab_data);
+                $tab = $this->factory->html('tab')->setId('tab_' . $tab_data['id'])->setTitle($tab_data['title']);
+                if (null === $tab_data['callback']) {
+                    foreach ($tab_data['filters'] as $filter) {
+                        $filter->apply($tab, $model);
+                    }
                 } else {
-                    $main_tabs[$tab_data['id']] = $this->factory->html('tab')->setId('tab_' . $tab_data['id'])->setTitle($tab_data['title']);
+                    $tab_data['callback']($tab, $model);
                 }
+                $main_tabs[$tab_data['id']] = $tab;
             }
         }
 
@@ -240,5 +245,22 @@ class Builder
         }
 
         return new $filter;
+    }
+
+    private function prepareTabConfig(array $tab_config)
+    {
+        if (!array_key_exists('callback', $tab_config) || !$tab_config['callback'] instanceof Closure) {
+            $tab_config['callback'] = null;
+        }
+
+        $filters = [];
+        if (array_key_exists('filters', $tab_config)) {
+            foreach ((array)$tab_config['filters'] as $key => $filter) {
+                $filters[] = $this->resolveFilterObject($filter);
+            }
+        }
+        $tab_config['filters'] = $filters;
+
+        return $tab_config;
     }
 }

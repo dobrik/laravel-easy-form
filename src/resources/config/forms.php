@@ -28,7 +28,6 @@
  */
 return [
     'blog' => [
-        'model' => null,
         'tabs' =>
             [
                 [
