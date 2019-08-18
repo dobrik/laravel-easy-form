@@ -90,8 +90,8 @@ abstract class HtmlAbstract
     }
 
     /**
-     * @throws \InvalidArgumentException
      * @return void
+     * @throws \InvalidArgumentException
      */
     protected function checkRequiredData(): void
     {
@@ -121,28 +121,33 @@ abstract class HtmlAbstract
      */
     protected function getView($data = []): string
     {
-        $class_name = get_class($this);
-        $class_name_array = explode('\\', $class_name);
-        $class_name_array = \array_slice($class_name_array, -2);
-        $template = 'easy_form::';
-        foreach ($class_name_array as $key => $item) {
-            $template .= $key === 0?'':'.';
-            $template .= strtolower(Str::snake($item, '_'));
-        }
-
-        if (view()->exists($template)) {
+        if (view()->exists($template = $this->getTemplatePath())) {
             $appendContent = '';
             foreach ($this->appended as $item) {
                 $appendContent .= PHP_EOL . $item;
             }
 
             return $this->view = view(
-                $template,
-                array_merge(['attributes' => $this->attributes, 'object' => $this, 'appended' => $this->appended], $data)
-            )->render() . $appendContent;
+                    $template,
+                    array_merge(['attributes' => $this->attributes, 'object' => $this, 'appended' => $this->appended], $data)
+                )->render() . $appendContent;
         }
 
         throw new \RuntimeException(sprintf('Template: "%s" not found.', $template));
+    }
+
+    protected function getTemplatePath(): string
+    {
+        $class_name = get_class($this);
+        $class_name_array = explode('\\', $class_name);
+        $class_name_array = \array_slice($class_name_array, -2);
+        $template = 'easy_form::';
+        foreach ($class_name_array as $key => $item) {
+            $template .= $key === 0 ? '' : '.';
+            $template .= strtolower(Str::snake($item, '_'));
+        }
+
+        return  $template;
     }
 
     /**
