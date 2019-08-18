@@ -216,7 +216,7 @@ class Builder
         }
 
         $filters = [];
-        if (!array_key_exists('filters', $field_config)) {
+        if (array_key_exists('filters', $field_config)) {
             foreach ((array)$field_config['filters'] as $key => $filter) {
                 $filters[] = $this->resolveFilterObject($filter);
             }
