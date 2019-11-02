@@ -1,5 +1,5 @@
 <div class="form-group {{ $attributes['name'] }}-block">
-    @if($label = array_pull($attributes ,'label'))
+    @if($label = Illuminate\Support\Arr::pull($attributes ,'label'))
         <label for="{{ $attributes['id'] or $attributes['name'] }}">{{ $label }}</label>
     @endif
     <input @forelse($attributes as $attr_name => $attr_value) {{ $attr_name }}="{{ $attr_value }}" @empty @endforelse >
