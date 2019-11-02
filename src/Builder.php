@@ -87,7 +87,7 @@ class Builder
         if ($form_config->has('tabs')) {
             $tabs_data = $form_config->get('tabs');
 
-            $tabs_data = array_values(array_sort($tabs_data, function ($value) {
+            $tabs_data = array_values(Arr::sort($tabs_data, function ($value) {
                 return $value['id'];
             }));
 
