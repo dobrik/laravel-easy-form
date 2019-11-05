@@ -1,4 +1,4 @@
-<div class="form-group {{ $attributes['name'] }}-block">
+<div class="form-group">
     @if($label = Illuminate\Support\Arr::pull($attributes ,'label'))
         <label for="{{ $attributes['id'] or $attributes['name'] }}">{{ $label }}</label>
     @endif
