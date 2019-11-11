@@ -9,25 +9,13 @@ use Dobrik\LaravelEasyForm\Forms\Interfaces\PluginInterface;
  * Class Datetimepicker
  * @package Dobrik\LaravelEasyForm\Forms\Plugins
  */
-class Datetimepicker extends HtmlAbstract implements PluginInterface
+class DateTimePicker extends HtmlAbstract implements PluginInterface
 {
 
     /**
      * @var HtmlAbstract
      */
     protected $parent;
-
-    /**
-     * @var array
-     */
-    public $attributes = ['class' => 'form-control'];
-
-    /**
-     * @var array
-     */
-    protected $required_attributes = [
-        'name'
-    ];
 
     /**
      * @return array

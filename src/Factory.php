@@ -18,7 +18,7 @@ class Factory
         'plugins' => [
             'ckeditor' => Forms\Plugins\Ckeditor::class,
             'color_picker' => Forms\Plugins\ColorPicker::class,
-            'datetimepicker' => Forms\Plugins\Datetimepicker::class,
+            'datetimepicker' => Forms\Plugins\DateTimePicker::class,
             'select2' => Forms\Plugins\Select2::class,
         ],
         'html' => [

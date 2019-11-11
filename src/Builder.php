@@ -174,7 +174,7 @@ class Builder
             }
         }
 
-        $field->attributes = array_merge_recursive($field_data['attributes'], $field->attributes);
+        $field->attributes = array_merge($field->attributes, $field_data['attributes']);
         if ($field_data['callback'] !== null) {
             $field_data['callback']($field, $model);
         }
