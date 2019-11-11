@@ -1,5 +1,5 @@
 <script>
     document.addEventListener("DOMContentLoaded", function (event) {
-        $('.select2').select2();
+        $('#{{ $attributes['id'] }}').select2();
     });
 </script>

@@ -39,8 +39,10 @@ class Select2 extends HtmlAbstract implements PluginInterface
     public function setParent(HtmlAbstract $parent): PluginInterface
     {
         $parent->setClass($parent->getClass() . ' form-control select2');
-        $parent->setMultiple('multiple');
-        $parent->setName($parent->getName() . '[]');
+
+        if ($parent->getMultible() !== null) {
+            $parent->setName($parent->getName() . '[]');
+        }
 
         $this->parent = $parent;
         return $this;
