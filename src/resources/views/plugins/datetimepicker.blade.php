@@ -1,5 +1,5 @@
 <script>
     document.addEventListener("DOMContentLoaded", function (event) {
-        $('input#{{ $attributes['id'] }}').datetimepicker();
+        $('#{{ $attributes['id'] }}').datetimepicker();
     });
 </script>
