@@ -185,7 +185,12 @@ class Builder
         }
 
         foreach ($field_data['plugins'] as $plugin) {
-            $field->append($this->factory->plugin($plugin)->setName($input_name)->setParent($field))->setId($field->getId());
+            $field->append(
+                $this->factory->plugin($plugin)
+                    ->setName($input_name)
+                    ->setParent($field)
+                    ->setId($field->getId())
+            );
         }
         return $field;
     }
