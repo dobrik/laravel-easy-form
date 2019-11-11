@@ -3,6 +3,7 @@
         <label for="{{ $attributes['id'] or $attributes['name'] }}">{{ $label }}</label>
     @endif
     <select @forelse($attributes as $attr_name => $attr_value) {{ $attr_name }}="{{ $attr_value }}" @empty @endforelse >
+        <option></option>
     @if((($current_value = $object->getValue()) instanceof \Illuminate\Support\Collection))
         @forelse($values as $value => $title)
             <option
