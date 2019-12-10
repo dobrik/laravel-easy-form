@@ -40,7 +40,7 @@ class Select2 extends HtmlAbstract implements PluginInterface
     {
         $parent->setClass($parent->getClass() . ' form-control select2');
 
-        if ($parent->getMultible() !== null) {
+        if ($parent->getMultiple() !== null) {
             $parent->setName($parent->getName() . '[]');
         }
 
