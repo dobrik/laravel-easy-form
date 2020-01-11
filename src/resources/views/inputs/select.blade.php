@@ -1,10 +1,11 @@
 <div class="form-group">
+    <?php $current_value = Illuminate\Support\Arr::pull($attributes ,'value') ?>
     @if($label = Illuminate\Support\Arr::pull($attributes ,'label'))
         <label for="{{ $attributes['id'] or $attributes['name'] }}">{{ $label }}</label>
     @endif
     <select @forelse($attributes as $attr_name => $attr_value) {{ $attr_name }}="{{ $attr_value }}" @empty @endforelse >
         <option></option>
-    @if((($current_value = $object->getValue()) instanceof \Illuminate\Support\Collection))
+    @if($current_value instanceof \Illuminate\Support\Collection)
         @forelse($values as $value => $title)
             <option
                     @if($current_value->where('id', $value)->first())
