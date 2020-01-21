@@ -18,6 +18,10 @@ abstract class TranslatableModelAbstract extends Model
      */
     public $translatable = [];
 
+    protected $locale_field = 'locale';
+
+    protected $locale_field_values = [];
+
     /**
      * Current locale.
      *
@@ -79,7 +83,7 @@ abstract class TranslatableModelAbstract extends Model
 
             $translationModel = $this->translations()->updateOrCreate(
                 [
-                    'locale' => $locale,
+                     $this->locale_field => $this->getLocaleFieldValueMapped($locale),
                     $this->translations()->getForeignKeyName() => $this->id
                 ],
                 $_data
@@ -129,7 +133,7 @@ abstract class TranslatableModelAbstract extends Model
 
         if (!isset($this->request_translations[$locale])) {
             $this->request_translations[$locale] = $this->translations
-                ->where('locale', $locale)->first();
+                ->where($this->locale_field, $this->getLocaleFieldValueMapped($locale))->first();
         }
         return $this->request_translations[$locale];
     }
@@ -155,5 +159,30 @@ abstract class TranslatableModelAbstract extends Model
     {
         $translations = $this->getRequestTranslations($locale);
         return $translations ? $translations->{$attribute} : null;
+    }
+
+    /**
+     *
+     * Get value for locale code with simple array cache
+     *
+     * @param $locale
+     * @return mixed
+     */
+    final protected function getLocaleFieldValueMapped($locale)
+    {
+        if(!isset($this->locale_field_values[$locale])){
+            $this->locale_field_values[$locale] = $this->getLocaleFieldValue($locale);
+        }
+
+        return $this->locale_field_values[$locale];
+    }
+
+    /**
+     * @param $locale
+     * @return mixed
+     */
+    protected function getLocaleFieldValue($locale)
+    {
+        return $locale;
     }
 }
