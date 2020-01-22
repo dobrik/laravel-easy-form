@@ -49,6 +49,13 @@ abstract class TranslatableModelAbstract extends Model
         parent::boot();
     }
 
+    public function toArray()
+    {
+        return array_merge(parent::toArray(), array_map(function ($item) {
+            return $this->getAttribute($item);
+        }, array_combine($this->translatable, $this->translatable)));
+    }
+
     /**
      * Fill model
      * @param array $attributes
@@ -83,7 +90,7 @@ abstract class TranslatableModelAbstract extends Model
 
             $translationModel = $this->translations()->updateOrCreate(
                 [
-                     $this->locale_field => $this->getLocaleFieldValueMapped($locale),
+                    $this->locale_field => $this->getLocaleFieldValueMapped($locale),
                     $this->translations()->getForeignKeyName() => $this->id
                 ],
                 $_data
@@ -107,7 +114,7 @@ abstract class TranslatableModelAbstract extends Model
     /**
      * Get an attribute from the model.
      *
-     * @param  string $key
+     * @param string $key
      * @return mixed
      */
     public function getAttribute($key)
@@ -151,7 +158,7 @@ abstract class TranslatableModelAbstract extends Model
 
     /**
      * Get translated attribute
-     * @param string $locale    Current locale.
+     * @param string $locale Current locale.
      * @param string $attribute Attribute for translation.
      * @return string|null
      */
@@ -170,7 +177,7 @@ abstract class TranslatableModelAbstract extends Model
      */
     final protected function getLocaleFieldValueMapped($locale)
     {
-        if(!isset($this->locale_field_values[$locale])){
+        if (!isset($this->locale_field_values[$locale])) {
             $this->locale_field_values[$locale] = $this->getLocaleFieldValue($locale);
         }
 
