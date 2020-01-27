@@ -167,14 +167,7 @@ class Builder
                 $value = $field_data['default'];
         }
 
-        if (null !== $value) {
-            if ($field->getType() === 'checkbox' && $value == 1) {
-                $field->setChecked();
-            } else {
-                $field->setValue($value);
-            }
-        }
-
+        $field->setValue($value);
         $field->attributes = array_merge($field->attributes, $field_data['attributes']);
         if ($field_data['callback'] !== null) {
             $field_data['callback']($field, $model);

@@ -24,6 +24,20 @@ class Input extends HtmlAbstract
         'name'
     ];
 
+    public function setValue($value)
+    {
+        if ($this->getType() === 'checkbox') {
+            if ($value == 1) {
+                $this->setChecked('checked');
+            } else {
+                $this->unsetChecked();
+            }
+            return $this;
+        }
+
+        return parent::setValue($value);
+    }
+
     /**
      * @return array
      */
