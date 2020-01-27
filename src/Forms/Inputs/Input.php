@@ -27,7 +27,7 @@ class Input extends HtmlAbstract
     public function setValue($value)
     {
         if ($this->getType() === 'checkbox') {
-            if ($value == 1) {
+            if ($value) {
                 $this->setChecked('checked');
             } else {
                 $this->unsetChecked();
@@ -45,7 +45,6 @@ class Input extends HtmlAbstract
     {
         if ($this->getType() == 'checkbox') {
             $this->setClass('');
-            $this->setValue('1');
         }
 
         return [];

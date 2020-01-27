@@ -167,7 +167,9 @@ class Builder
                 $value = $field_data['default'];
         }
 
-        $field->setValue($value);
+        if ($value) {
+            $field->setValue($value);
+        }
         $field->attributes = array_merge($field->attributes, $field_data['attributes']);
         if ($field_data['callback'] !== null) {
             $field_data['callback']($field, $model);
