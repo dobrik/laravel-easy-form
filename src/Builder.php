@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Closure;
 
 /**
@@ -115,7 +116,7 @@ class Builder
                 foreach ($this->configRepository->get('easy_form.config.locales') as $locale) {
                     $fieldObject = $this->prepareField($field_config, $model, $locale);
                     $field->addTab(
-                        $this->factory->html('tab')->setTitle($locale)->setId($field_config['name'] . '_' . $locale)->setContent($fieldObject)
+                        $this->factory->html('tab')->setTitle($locale)->setId('id_' . Str::random(6) . '_' . $locale)->setContent($fieldObject)
                     );
                 }
             } else {
