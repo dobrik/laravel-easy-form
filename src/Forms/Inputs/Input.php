@@ -32,7 +32,7 @@ class Input extends HtmlAbstract
             } else {
                 $this->unsetChecked();
             }
-            return $this;
+            $value = 1;
         }
 
         return parent::setValue($value);
