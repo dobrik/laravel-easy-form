@@ -32,10 +32,18 @@ class Input extends HtmlAbstract
             } else {
                 $this->unsetChecked();
             }
-            $value = 1;
+            $this->attributes['value'] = '1';
+        } else {
+            return parent::setValue($value);
         }
+    }
 
-        return parent::setValue($value);
+    public function getValue()
+    {
+        if ($this->getType() === 'checkbox') {
+            return $this->getChecked() ? '1' : null;
+        }
+        return parent::getValue();
     }
 
     /**
