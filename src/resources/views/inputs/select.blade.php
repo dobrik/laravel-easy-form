@@ -1,10 +1,11 @@
 <div class="form-group">
     <?php $current_value = Illuminate\Support\Arr::pull($attributes ,'value') ?>
+    <?php $not_empty = Illuminate\Support\Arr::pull($attributes ,'not_empty', false) ?>
     @if($label = Illuminate\Support\Arr::pull($attributes ,'label'))
         <label for="{{ $attributes['id'] or $attributes['name'] }}">{{ $label }}</label>
     @endif
     <select @forelse($attributes as $attr_name => $attr_value) {{ $attr_name }}="{{ $attr_value }}" @empty @endforelse >
-        <option></option>
+        @if(!$not_empty) <option></option> @endif
     @if($current_value instanceof \Illuminate\Support\Collection)
         @forelse($values as $value => $title)
             <option
