@@ -2,38 +2,24 @@
 
 namespace Dobrik\LaravelEasyForm;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
 use Dobrik\LaravelEasyForm\Exceptions\InvalidAliasException;
-use Dobrik\LaravelEasyForm\Forms\Interfaces\PluginInterface;
 
 /**
  * Class Factory
  * @package Dobrik\LaravelEasyForm\Forms Factory create HtmlAbstract instances.
+ * @method HtmlAbstract html(string $name)
+ * @method HtmlAbstract plugin(string $name)
+ * @method HtmlAbstract filter(string $name)
  */
 class Factory
 {
     private $aliases = [
-        'plugins' => [
-            'ckeditor' => Forms\Plugins\Ckeditor::class,
-            'color_picker' => Forms\Plugins\ColorPicker::class,
-            'air_date_picker' => Forms\Plugins\AirDatePicker::class,
-            'datetimepicker' => Forms\Plugins\DateTimePicker::class,
-            'select2' => Forms\Plugins\Select2::class,
+        'plugin' => [
+
         ],
         'html' => [
-            'div' => Forms\Html\Div::class,
-            'tab' => Forms\Html\Tab::class,
-            'tabs' => Forms\Html\Tabs::class,
-        ],
-        'inputs' => [
-            'button' => Forms\Inputs\Button::class,
-            'form' => Forms\Inputs\Form::class,
-            'image' => Forms\Inputs\Image::class,
-            'input' => Forms\Inputs\Input::class,
-            'select' => Forms\Inputs\Select::class,
-            'textarea' => Forms\Inputs\Textarea::class,
+
         ],
     ];
 
@@ -57,31 +43,11 @@ class Factory
         return new $class($this);
     }
 
-    /**
-     * @param string $class Alias for make($class, 'Plugins') call.
-     * @return PluginInterface
-     */
-    public function plugin(string $class): PluginInterface
+    public function __call($name, $arguments)
     {
-        return $this->make($class, 'plugins');
-    }
-
-    /**
-     * @param string $class Alias for make($class, 'Inputs') call.
-     * @return HtmlAbstract
-     */
-    public function input(string $class): HtmlAbstract
-    {
-        return $this->make($class, 'inputs');
-    }
-
-    /**
-     * @param string $class Alias for make($class, 'Html') call.
-     * @return HtmlAbstract
-     */
-    public function html(string $class): HtmlAbstract
-    {
-        return $this->make($class, 'html');
+        if (array_key_exists($name, $this->aliases)) {
+            return $this->make($arguments[0], $name);
+        }
     }
 
     /**

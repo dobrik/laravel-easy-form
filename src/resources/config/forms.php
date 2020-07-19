@@ -104,4 +104,51 @@ return [
             ],
         ]
     ],
+    'new_blog' => [
+        'action' => '',
+        'route' => '',
+        'method' => '',
+        'child' => [
+            [
+                'type' => 'Div', //buttons
+                'class' => 'container',
+                'child' => [
+                    [
+                        'title' => 'save',
+                        'type' => 'Button',
+                        'class' => 'btn-success'
+                    ]
+                ]
+            ],
+            [
+                'type' => 'Tabs',
+                'title' => 'Title',
+                'child' => [
+                    [
+                        'type' => 'Tab',
+                        'title' => 'Common',
+                        'child' => [
+                            [
+                                'name' => 'meta_keywords',
+                                'title' => 'Meta keywords',
+                                'type' => 'Input:text',
+                                'translatable' => true,
+                                'filters' => [
+
+                                ],
+                                'plugins' => [
+
+                                ]
+                            ],
+                            [
+                                'name' => 'meta_keywords',
+                                'title' => 'Meta keywords',
+                                'type' => 'Input:text'
+                            ],
+                        ]
+                    ],
+                ]
+            ]
+        ]
+    ]
 ];

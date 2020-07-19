@@ -2,6 +2,9 @@
 
 namespace Dobrik\LaravelEasyForm;
 
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Http\Request;
+
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function register()
@@ -9,6 +12,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->mergeConfigFrom($this->getAliasesConfigPath(), 'easy_form.aliases');
         $this->mergeConfigFrom($this->getFormsConfigPath(), 'easy_form.forms');
         $this->mergeConfigFrom($this->getMainConfigPath(), 'easy_form.config');
+        $this->mergeConfigFrom($this->getHandlersConfigPath(), 'easy_form.handlers');
 
         $this->app->singleton(Factory::class, function () {
             $factory = new Factory();
@@ -16,8 +20,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         });
 
         $this->app->singleton(Builder::class, function () {
-            $creator = new Builder($this->app->make(Factory::class), $this->app->make('config'));
-            return $creator->setRequest($this->app->make(\Illuminate\Http\Request::class));
+            return new Builder(
+                $this->app->make(Container::class),
+                $this->app->make(Factory::class),
+                $this->app->make('config')
+            );
         }
         );
     }
@@ -49,6 +56,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     private function getFormsConfigPath()
     {
         return __DIR__ . '/resources/config/forms.php';
+    }
+
+    private function getHandlersConfigPath()
+    {
+        return __DIR__ . '/resources/config/handlers.php';
     }
 
     private function getViewsPath(): string

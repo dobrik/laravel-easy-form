@@ -2,14 +2,15 @@
 
 namespace Dobrik\LaravelEasyForm\Forms\Html;
 
-use Illuminate\Support\Str;
+use Dobrik\LaravelEasyForm\Exceptions\InvalidElementException;
 use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
+use Dobrik\LaravelEasyForm\Forms\Interfaces\HasContentInterface;
 
 /**
  * Class Tabs
  * @package Dobrik\LaravelEasyForm\Forms\Html
  */
-class Tabs extends HtmlAbstract
+class Tabs extends HtmlAbstract implements HasContentInterface
 {
     /**
      * @var array
@@ -19,8 +20,8 @@ class Tabs extends HtmlAbstract
     /**
      * @var array
      */
-    protected $required_attributes = [
-        'label'
+    protected $requiredAttributes = [
+        'title'
     ];
 
     /**
@@ -47,6 +48,22 @@ class Tabs extends HtmlAbstract
     }
 
     /**
+     * @param array $tabs
+     * @return HtmlAbstract
+     */
+    public function setTabs(array $tabs): HtmlAbstract
+    {
+        foreach ($tabs as $tab) {
+            if (!$tab instanceof Tab) {
+                throw new InvalidElementException(sprintf('Expected instance of "Dobrik\LaravelEasyForm\Forms\Html\Tab", "%s" given', get_class($tab)));
+            }
+            $this->tabs[] = $tab;
+        }
+
+        return $this;
+    }
+
+    /**
      * @return void
      */
     private function checkActive(): void
@@ -57,16 +74,12 @@ class Tabs extends HtmlAbstract
         }
     }
 
-    /**
-     * @param array $tabs
-     * @return HtmlAbstract
-     */
-    public function setTabs(array $tabs): HtmlAbstract
+    public function setContent($content): HtmlAbstract
     {
-        foreach ($tabs as $tab) {
-            if ($tab instanceof Tab) {
-                $this->tabs[] = $tab;
-            }
+        if (\is_array($content)) {
+            $this->setTabs($content);
+        } else {
+            $this->addTab($content);
         }
 
         return $this;

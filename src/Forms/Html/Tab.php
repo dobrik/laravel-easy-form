@@ -2,19 +2,22 @@
 
 namespace Dobrik\LaravelEasyForm\Forms\Html;
 
-use Illuminate\Support\Arr;
+use Dobrik\LaravelEasyForm\Forms\Interfaces\HasContentInterface;
 use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
+use Dobrik\LaravelEasyForm\Forms\Traits\HasContentTrait;
+use Illuminate\Support\Arr;
 
 /**
  * Class Tab
  * @package Dobrik\LaravelEasyForm\Forms\Html
  */
-class Tab extends HtmlAbstract
+class Tab extends HtmlAbstract implements HasContentInterface
 {
+    use HasContentTrait;
     /**
      * @var array
      */
-    protected $required_attributes = [
+    protected $requiredAttributes = [
         'title', 'id'
     ];
 
@@ -22,47 +25,12 @@ class Tab extends HtmlAbstract
         'class' => 'tab-pane'
     ];
 
-    public $content;
-
     /**
-     * @param array|string $data
-     * @return HtmlAbstract
-     */
-    public function append($data): HtmlAbstract
-    {
-        if (null === $this->getContent()) {
-            $this->setContent('');
-        }
-
-        if (\is_array($data)) {
-            foreach ($data as $item) {
-                $this->content .= $item;
-            }
-            return $this;
-        }
-        $this->content .= $data;
-
-        return $this;
-    }
-
-    public function setContent($data)
-    {
-        $this->content = $data;
-        return $this;
-    }
-
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-
-    /**
-     * @throws \Throwable
      * @return array
+     * @throws \Throwable
      */
     public function getData(): array
     {
-        return ['content' => $this->getContent()];
+        return ['content' => Arr::pull($this->attributes, 'content')];
     }
 }

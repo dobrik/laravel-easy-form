@@ -2,6 +2,8 @@
 
 namespace Dobrik\LaravelEasyForm\Forms\Html;
 
+use Dobrik\LaravelEasyForm\Forms\Interfaces\HasContentInterface;
+use Dobrik\LaravelEasyForm\Forms\Traits\HasContentTrait;
 use Illuminate\Support\Arr;
 use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
 
@@ -9,12 +11,13 @@ use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
  * Class Div
  * @package Dobrik\LaravelEasyForm\Forms\Html
  */
-class Div extends HtmlAbstract
+class Div extends HtmlAbstract implements HasContentInterface
 {
+    use HasContentTrait;
     /**
      * @var array
      */
-    protected $required_attributes = [
+    protected $requiredAttributes = [
         'content'
     ];
 
@@ -37,27 +40,6 @@ class Div extends HtmlAbstract
         }
         $this->attributes['content'] .= $data;
 
-
-        return $this;
-    }
-
-    /**
-     * @param array|string $content
-     * @return $this
-     */
-    public function setContent($content): HtmlAbstract
-    {
-        if (\is_array($content)) {
-            if (!Arr::has($this->attributes, 'content')) {
-                $this->attributes['content'] = '';
-            }
-
-            foreach ($content as $item) {
-                $this->attributes['content'] .= $item;
-            }
-        } else {
-            $this->attributes['content'] = $content;
-        }
 
         return $this;
     }

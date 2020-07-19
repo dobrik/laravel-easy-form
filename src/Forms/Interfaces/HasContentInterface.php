@@ -4,7 +4,7 @@ namespace Dobrik\LaravelEasyForm\Forms\Interfaces;
 
 use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
 
-interface FilterInterface
+interface HasContentInterface
 {
-    public function apply(HtmlAbstract $htmlAbstract, array $data = []): void;
+    public function setContent($content): HtmlAbstract;
 }

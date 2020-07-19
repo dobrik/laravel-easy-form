@@ -1,4 +1,4 @@
-<h4>{{ \Illuminate\Support\Arr::pull($attributes, 'label') }}</h4>
+<h4>{{ \Illuminate\Support\Arr::pull($attributes, 'title') }}</h4>
 <div class="nav-tabs-custom">
     @if(count($tabs) > 1)
         <ul @forelse($attributes as $attribute => $value) {{ $attribute }}="{{ $value }}" @empty @endforelse>
