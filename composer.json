@@ -1,39 +1,42 @@
 {
-  "name": "dobrik/laravel-easy-form",
-  "type": "library",
-  "description": "Package for easy build forms.",
-  "keywords": [
-    "forms",
-    "laravel"
-  ],
-  "homepage": "https://github.com/dobrik",
-  "license": "GPL-3.0-or-later",
-  "require": {
-    "php": ">=7.2"
-  },
-  "authors": [
-    {
-      "name": "Alexey Dobrovolsky",
-      "email": "dobrik1990@gmail.com"
-    }
-  ],
-  "autoload": {
-    "files": [
-      "src/helpers.php"
+    "name": "dobrik/laravel-easy-form",
+    "type": "library",
+    "description": "Package for easy build forms.",
+    "keywords": [
+        "forms",
+        "laravel"
     ],
-    "psr-4": {
-      "Dobrik\\LaravelEasyForm\\": "src/"
+    "homepage": "https://github.com/dobrik",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.2",
+        "illuminate/support": ">=5.*",
+        "illuminate/pipeline": ">=5.*",
+        "illuminate/contracts": ">=5.*"
+    },
+    "authors": [
+        {
+            "name": "Alexey Dobrovolsky",
+            "email": "dobrik1990@gmail.com"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Dobrik\\LaravelEasyForm\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dobrik\\LaravelEasyForm\\ServiceProvider"
+            ],
+            "aliases": {
+                "EasyForm": "Dobrik\\LaravelEasyForm\\Facade",
+                "EasyFormFactory": "Dobrik\\LaravelEasyForm\\FactoryFacade"
+            }
+        }
     }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Dobrik\\LaravelEasyForm\\ServiceProvider"
-      ],
-      "aliases": {
-        "EasyForm": "Dobrik\\LaravelEasyForm\\Facade",
-        "EasyFormFactory": "Dobrik\\LaravelEasyForm\\FactoryFacade"
-      }
-    }
-  }
 }
