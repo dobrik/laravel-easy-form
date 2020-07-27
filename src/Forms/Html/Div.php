@@ -14,6 +14,9 @@ use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
 class Div extends HtmlAbstract implements HasContentInterface
 {
     use HasContentTrait;
+
+    public $attributes = ['content' => ''];
+
     /**
      * @var array
      */
@@ -49,6 +52,6 @@ class Div extends HtmlAbstract implements HasContentInterface
      */
     public function getData(): array
     {
-        return ['content' => Arr::pull($this->attributes, 'content')];
+        return ['content' => $this->pullContent()];
     }
 }

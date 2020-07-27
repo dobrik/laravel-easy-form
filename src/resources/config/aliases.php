@@ -11,6 +11,7 @@ return [
         'input' => \Dobrik\LaravelEasyForm\Forms\Html\Input::class,
         'select' => \Dobrik\LaravelEasyForm\Forms\Html\Select::class,
         'textarea' => \Dobrik\LaravelEasyForm\Forms\Html\Textarea::class,
+        'template' => \Dobrik\LaravelEasyForm\Forms\Html\Template::class,
     ],
 
     'plugin' => [

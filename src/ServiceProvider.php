@@ -13,6 +13,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->mergeConfigFrom($this->getFormsConfigPath(), 'easy_form.forms');
         $this->mergeConfigFrom($this->getMainConfigPath(), 'easy_form.config');
         $this->mergeConfigFrom($this->getHandlersConfigPath(), 'easy_form.handlers');
+        $this->mergeConfigFrom($this->getDefaultsConfigPath(), 'easy_form.defaults');
+        $this->mergeConfigFrom($this->getTemplatesConfigPath(), 'easy_form.templates');
 
         $this->app->singleton(Factory::class, function () {
             $factory = new Factory();
@@ -63,8 +65,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         return __DIR__ . '/resources/config/handlers.php';
     }
 
+    private function getDefaultsConfigPath()
+    {
+        return __DIR__ . '/resources/config/defaults.php';
+    }
+
+    private function getTemplatesConfigPath()
+    {
+        return __DIR__ . '/resources/config/templates.php';
+    }
+
     private function getViewsPath(): string
     {
         return __DIR__ . '/resources/views';
     }
+
 }

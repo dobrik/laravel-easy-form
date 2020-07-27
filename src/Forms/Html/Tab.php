@@ -31,6 +31,6 @@ class Tab extends HtmlAbstract implements HasContentInterface
      */
     public function getData(): array
     {
-        return ['content' => Arr::pull($this->attributes, 'content')];
+        return ['content' => $this->pullContent()];
     }
 }

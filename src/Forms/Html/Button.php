@@ -23,6 +23,6 @@ class Button extends HtmlAbstract
      */
     public function getData(): array
     {
-        return ['title' => Arr::pull($this->attributes, 'title')];
+        return ['title' => $this->pullTitle()];
     }
 }

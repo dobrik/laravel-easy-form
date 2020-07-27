@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="{{ $object->pullWrapperClass() }}">
     <label class="btn">
         <p><b>Image</b></p>
         <p><b>{{ $object->getTitle() }}</b></p>

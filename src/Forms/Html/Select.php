@@ -42,6 +42,6 @@ class Select extends HtmlAbstract implements HasValueInterface
      */
     public function getData(): array
     {
-        return ['values' => Arr::pull($this->attributes, 'values')];
+        return ['values' => $this->pullValues()];
     }
 }

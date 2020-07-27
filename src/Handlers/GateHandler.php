@@ -17,7 +17,6 @@ class GateHandler implements HandlerInterface
                     $payload->getBuilder()
                         ->getFactory()
                         ->html('div')
-                        ->setContent('')
                 );
                 return $payload;
             }

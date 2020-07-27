@@ -74,8 +74,8 @@ class Builder
 
     private function registerForms(): void
     {
-        foreach ($this->configRepository->get('easy_form.config.forms') as $form) {
-            $this->registerFormConfig($this->configRepository->get($form));
+        foreach ($this->getConfigRepository()->get('easy_form.config.forms') as $form) {
+            $this->registerFormConfig($this->getConfigRepository()->get($form));
         }
     }
 
@@ -91,6 +91,14 @@ class Builder
     public function getContainer(): Container
     {
         return $this->container;
+    }
+
+    /**
+     * @return Repository
+     */
+    public function getConfigRepository(): Repository
+    {
+        return $this->configRepository;
     }
 
     /**
@@ -127,6 +135,10 @@ class Builder
     {
         throw_if(!isset($elementConfig['type']), new InvalidElementConfigException('Element has no required "type" field.'));
         $htmlAbstract = $this->getFactory()->html(explode(':', $elementConfig['type'])[0]);
+        $elementConfig = array_merge(
+            $this->getDefaultsFor($htmlAbstract),
+            $elementConfig
+        );
 
         $pipeline = new Pipeline($this->container);
         return $pipeline
@@ -143,11 +155,16 @@ class Builder
             ->getHtmlAbstract();
     }
 
-    protected function getHandlersFor(HtmlAbstract $htmlAbstract): array
+    /**
+     * @param HtmlAbstract $htmlAbstract
+     * @param string $config
+     * @return array
+     */
+    protected function getConfigFor(HtmlAbstract $htmlAbstract, string $config): array
     {
-        $handlers = $this->configRepository->get('easy_form.handlers.common', []);
+        $handlers = $this->getConfigRepository()->get('easy_form.' . $config . '.common', []);
+        $types = $this->getConfigRepository()->get('easy_form.' . $config . '.types', []);
 
-        $types = $this->configRepository->get('easy_form.handlers.types', []);
         $handlersForType = [];
         foreach ($types as $applyTo => $applyHandlers) {
             if ($htmlAbstract instanceof $applyTo) {
@@ -156,5 +173,23 @@ class Builder
         }
 
         return array_unique(array_merge($handlers, ...$handlersForType));
+    }
+
+    /**
+     * @param HtmlAbstract $htmlAbstract
+     * @return array
+     */
+    protected function getHandlersFor(HtmlAbstract $htmlAbstract): array
+    {
+        return $this->getConfigFor($htmlAbstract, 'handlers');
+    }
+
+    /**
+     * @param HtmlAbstract $htmlAbstract
+     * @return array
+     */
+    protected function getDefaultsFor(HtmlAbstract $htmlAbstract): array
+    {
+        return $this->getConfigFor($htmlAbstract, 'defaults');
     }
 }

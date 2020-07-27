@@ -36,35 +36,36 @@ abstract class HtmlAbstract
      * Magic method to set class attributes.
      *
      * @param string $method
-     * @param mixed $attributes
+     * @param mixed $arguments
      * @return $this|bool|mixed|null
      */
-    public function __call(string $method, $attributes)
+    public function __call(string $method, $arguments)
     {
         if (Str::startsWith($method, 'set')) {
-            $method = Str::snake($method, '_');
-            $attribute = strtolower(str_replace('set_', '', $method));
-            $value = Arr::first($attributes, null, null);
-            $this->attributes[$attribute] = $value;
+            $attribute = Str::snake(Str::after($method, 'set'), '_');
+            $this->attributes[$attribute] = Arr::first($arguments, null, null);
             return $this;
         }
         if (Str::startsWith($method, 'get')) {
-            $method = Str::snake($method, '_');
-            $attribute = strtolower(str_replace('get_', '', $method));
-            if (Arr::has($this->attributes, Str::snake($attribute, '_'))) {
+            $attribute = Str::snake(Str::after($method, 'get'), '_');
+            if (Arr::has($this->attributes, $attribute)) {
                 return $this->attributes[$attribute];
             }
-            return null;
         }
         if (Str::startsWith($method, 'unset')) {
-            $method = Str::snake($method, '_');
-            $attribute = strtolower(str_replace('unset_', '', $method));
-            if (Arr::has($this->attributes, Str::snake($attribute, '_'))) {
+            $attribute = Str::snake(Str::after($method, 'unset'), '_');
+            if (Arr::has($this->attributes, $attribute)) {
                 unset($this->attributes[$attribute]);
             }
             return $this;
         }
-        return false;
+        if (Str::startsWith($method, 'pull')) {
+            $attribute = Str::snake(Str::after($method, 'pull'), '_');
+            if (Arr::has($this->attributes, $attribute)) {
+                return Arr::pull($this->attributes , $attribute);
+            }
+        }
+        return null;
     }
 
     /**

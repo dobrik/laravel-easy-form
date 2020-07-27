@@ -30,7 +30,7 @@ class Textarea extends HtmlAbstract implements HasValueInterface
      */
     public function getData(): array
     {
-        return ['value' => Arr::pull($this->attributes, 'value')];
+        return ['value' => $this->pullValue()];
     }
 
     public function setValue($value): HtmlAbstract
