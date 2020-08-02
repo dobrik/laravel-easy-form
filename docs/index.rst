@@ -1,6 +1,7 @@
 .. toctree::
-   :titlesonly:
+   :maxdepth: 2
    :numbered:
+   :hidden:
 
-    introduction
-    installation
+   introduction
+   installation
