@@ -2,5 +2,5 @@
    :titlesonly:
    :numbered:
 
-    docs/introdution
-    docs/instalation
+    docs/introduction
+    docs/installation
