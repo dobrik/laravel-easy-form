@@ -13,80 +13,59 @@ use Illuminate\Support\Arr;
  */
 abstract class HtmlAbstract
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     public $attributes = [];
 
-    /**
-     * @var View
-     */
+    /** @var HtmlAbstract|null */
+    public $parent;
+
+    /** @var null|string */
     protected $view;
 
-    /**
-     * @var Factory
-     */
-    protected $factory;
-
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $appended = [];
 
-    /**
-     * @var array
-     */
-    protected $required_attributes = [];
+    /** @var array */
+    protected $requiredAttributes = [];
 
-    /**
-     * @return array
-     */
+    /** @return array */
     abstract public function getData(): array;
-
-    /**
-     * HtmlAbstract constructor.
-     * @param Factory $factory
-     */
-    public function __construct(Factory $factory)
-    {
-        $this->factory = $factory;
-        $this->attributes['id'] = 'id_' . Str::random(10);
-    }
 
     /**
      *
      * Magic method to set class attributes.
      *
      * @param string $method
-     * @param mixed $attributes
+     * @param mixed $arguments
      * @return $this|bool|mixed|null
      */
-    public function __call(string $method, $attributes)
+    public function __call(string $method, $arguments)
     {
         if (Str::startsWith($method, 'set')) {
-            $method = Str::snake($method, '_');
-            $attribute = strtolower(str_replace('set_', '', $method));
-            $value = Arr::first($attributes, null, null);
-            $this->attributes[$attribute] = $value;
+            $attribute = Str::snake(Str::after($method, 'set'), '_');
+            $this->attributes[$attribute] = Arr::first($arguments, null, null);
             return $this;
         }
         if (Str::startsWith($method, 'get')) {
-            $method = Str::snake($method, '_');
-            $attribute = strtolower(str_replace('get_', '', $method));
-            if (Arr::has($this->attributes, Str::snake($attribute, '_'))) {
+            $attribute = Str::snake(Str::after($method, 'get'), '_');
+            if (Arr::has($this->attributes, $attribute)) {
                 return $this->attributes[$attribute];
             }
-            return null;
         }
         if (Str::startsWith($method, 'unset')) {
-            $method = Str::snake($method, '_');
-            $attribute = strtolower(str_replace('unset_', '', $method));
-            if (Arr::has($this->attributes, Str::snake($attribute, '_'))) {
+            $attribute = Str::snake(Str::after($method, 'unset'), '_');
+            if (Arr::has($this->attributes, $attribute)) {
                 unset($this->attributes[$attribute]);
             }
             return $this;
         }
-        return false;
+        if (Str::startsWith($method, 'pull')) {
+            $attribute = Str::snake(Str::after($method, 'pull'), '_');
+            if (Arr::has($this->attributes, $attribute)) {
+                return Arr::pull($this->attributes , $attribute);
+            }
+        }
+        return null;
     }
 
     /**
@@ -95,9 +74,9 @@ abstract class HtmlAbstract
      */
     protected function checkRequiredData(): void
     {
-        foreach ($this->required_attributes as $required_attribute) {
-            if (!array_key_exists($required_attribute, $this->attributes)) {
-                throw new \InvalidArgumentException(sprintf('Attribute "%s" is required for this field type. File: "%s" Line: "%d"', $required_attribute, __FILE__, __LINE__));
+        foreach ($this->requiredAttributes as $requiredAttribute) {
+            if (!array_key_exists($requiredAttribute, $this->attributes)) {
+                throw new \InvalidArgumentException(sprintf('Attribute "%s" is required for this field type. File: "%s" Line: "%d"', $requiredAttribute, __FILE__, __LINE__));
             }
         }
     }
@@ -121,6 +100,9 @@ abstract class HtmlAbstract
      */
     protected function getView($data = []): string
     {
+        if ($this->view !== null) {
+            return $this->view;
+        }
         if (view()->exists($template = $this->getTemplatePath())) {
             $appendContent = '';
             foreach ($this->appended as $item) {
@@ -147,7 +129,7 @@ abstract class HtmlAbstract
             $template .= strtolower(Str::snake($item, '_'));
         }
 
-        return  $template;
+        return $template;
     }
 
     /**
@@ -159,9 +141,6 @@ abstract class HtmlAbstract
         if (\is_array($data)) {
             $this->appended = array_merge($this->appended, $data);
         } else {
-            if ($data instanceof self) {
-                $data->setDataId($this->attributes['id']);
-            }
             $this->appended[] = $data;
         }
 
@@ -177,11 +156,13 @@ abstract class HtmlAbstract
     }
 
     /**
-     * @return Factory
+     * @param array $attributes
+     * @return HtmlAbstract
      */
-    public function getFactory(): Factory
+    public function setAttributes(array $attributes): HtmlAbstract
     {
-        return $this->factory;
+        $this->attributes = $attributes;
+        return $this;
     }
 
     /**
@@ -192,9 +173,26 @@ abstract class HtmlAbstract
     public function __toString()
     {
         if ($this->view === null) {
-            $this->nameToArrayDot();
             $this->compile();
         }
         return (string)$this->view;
+    }
+
+    /**
+     * @param HtmlAbstract $parent
+     * @return HtmlAbstract
+     */
+    public function setParent(HtmlAbstract $parent): HtmlAbstract
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+
+    /**
+     * @return HtmlAbstract|null
+     */
+    public function getParent(): ?HtmlAbstract
+    {
+        return $this->parent;
     }
 }
