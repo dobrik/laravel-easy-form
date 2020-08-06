@@ -35,11 +35,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->loadViewsFrom($this->getViewsPath(), 'easy_form');
 
-
         $this->publishes([
             $this->getAliasesConfigPath() => config_path('easy_form/aliases.php'),
-            $this->getMainConfigPath() => config_path('easy_form/config.php'),
             $this->getFormsConfigPath() => config_path('easy_form/forms.php'),
+            $this->getMainConfigPath() => config_path('easy_form/config.php'),
+            $this->getHandlersConfigPath() => config_path('easy_form/handlers.php'),
+            $this->getDefaultsConfigPath() => config_path('easy_form/defaults.php'),
+            $this->getTemplatesConfigPath() => config_path('easy_form/templates.php'),
             $this->getViewsPath() => resource_path('views/vendor/easy_form'),
         ]);
         $this->publishes([__DIR__ . '/resources/assets' => public_path('vendor/easy_form/assets')], 'assets');
