@@ -11,7 +11,7 @@
                 Load Image
             </a>
         </p>
-        <input class="hidden" type="file" id="{{ $id }}_input" name="{{ $object->getName() }}">
+        <input class="hidden" style="display: none;" type="file" id="{{ $id }}_input" name="{{ $object->getName() }}">
         @if($object->getValue())
             <p>
                 <label for="{{$object->getName()}}_delete">Delete image</label>
