@@ -22,7 +22,9 @@ class CurrentValueHandler implements HandlerInterface
 
     protected function getFieldValue($name, $data)
     {
+        //TODO: fix multi dimensional array value
+        $name = arrayToDot($name);
         $dotStyleArrayData = Arr::dot($data);
-        return $dotStyleArrayData[arrayToDot($name)] ?? '';
+        return $dotStyleArrayData[$name] ?? $data[$name] ?? null;
     }
 }
