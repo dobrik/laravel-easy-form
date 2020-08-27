@@ -1,5 +1,5 @@
 <div class="{{ $object->pullWrapperClass() }}">
-    @if($label = Illuminate\Support\Arr::pull($attributes ,'label'))
+    @if($label = $object->pullTitle())
         <label for="{{ $attributes['id'] or $attributes['name'] }}">{{ $label }}</label>
     @endif
     <textarea @forelse($attributes as $attr_name => $attr_value) {{ $attr_name }}="{{ $attr_value }}" @empty @endforelse>{!! $value !!}</textarea>
