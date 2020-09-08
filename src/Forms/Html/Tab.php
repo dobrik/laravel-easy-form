@@ -21,10 +21,6 @@ class Tab extends HtmlAbstract implements HasContentInterface
         'title', 'id'
     ];
 
-    public $attributes = [
-        'class' => 'tab-pane'
-    ];
-
     /**
      * @return array
      * @throws \Throwable

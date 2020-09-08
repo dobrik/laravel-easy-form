@@ -15,11 +15,6 @@ class Tabs extends HtmlAbstract implements HasContentInterface
     /**
      * @var array
      */
-    public $attributes = ['class' => 'nav nav-tabs'];
-
-    /**
-     * @var array
-     */
     protected $requiredAttributes = [
         'title'
     ];

@@ -16,7 +16,7 @@ class Select extends HtmlAbstract implements HasValueInterface
     /**
      * @var array
      */
-    public $attributes = ['class' => 'form-control', 'values' => []];
+    public $attributes = ['values' => []];
     /**
      * @var array
      */

@@ -12,12 +12,6 @@ use Dobrik\LaravelEasyForm\Forms\Interfaces\HasValueInterface;
  */
 class Input extends HtmlAbstract implements HasValueInterface
 {
-
-    /**
-     * @var array
-     */
-    public $attributes = ['class' => 'form-control'];
-
     /**
      * @var array
      */

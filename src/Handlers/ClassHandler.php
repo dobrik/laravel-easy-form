@@ -12,7 +12,7 @@ class ClassHandler implements HandlerInterface
         $elementConfig = $payload->getElementConfig();
         $htmlAbstract = $payload->getHtmlAbstract();
 
-        if (isset($elementConfig['class']) && $htmlAbstract->getClass() === null) {
+        if (isset($elementConfig['class'])) {
             $htmlAbstract->setClass($elementConfig['class']);
         }
 

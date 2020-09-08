@@ -16,7 +16,7 @@ class Form extends HtmlAbstract implements HasContentInterface
     /**
      * @var array
      */
-    public $attributes = ['class' => 'form-control', 'action' => '?', 'method' => 'post', 'ajax' => false];
+    public $attributes = ['action' => '?', 'method' => 'post', 'ajax' => false];
 
     /**
      * @var array
