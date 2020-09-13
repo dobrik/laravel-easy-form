@@ -2,6 +2,9 @@
 return [
     'common' => [],
     'types' => [
+        Dobrik\LaravelEasyForm\Forms\Interfaces\HasValueInterface::class => [
+            'wrapper_class' => 'form-group'
+        ],
         Dobrik\LaravelEasyForm\Forms\Html\Tabs::class => [
             'class' => 'nav nav-tabs'
         ],

@@ -13,10 +13,6 @@ return [
     ],
 
     'types' => [
-        \Dobrik\LaravelEasyForm\Forms\Html\Form::class => [
-            \Dobrik\LaravelEasyForm\Handlers\FormActionHandler::class,
-            \Dobrik\LaravelEasyForm\Handlers\FormMethodHandler::class,
-        ],
         \Dobrik\LaravelEasyForm\Forms\Html\Select::class => [
             \Dobrik\LaravelEasyForm\Handlers\SelectValuesHandler::class
         ],
