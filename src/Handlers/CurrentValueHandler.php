@@ -12,9 +12,10 @@ class CurrentValueHandler implements HandlerInterface
     {
         if (!empty($payload->getData())) {
             $htmlAbstract = $payload->getHtmlAbstract();
-            $htmlAbstract->setValue(
-                $this->getFieldValue($htmlAbstract->getName(), $payload->getData())
-            );
+            $value = $this->getFieldValue($htmlAbstract->getName(), $payload->getData());
+            if(!empty($value)) {
+                $htmlAbstract->setValue($value);
+            }
         }
 
         return $next($payload);
