@@ -26,10 +26,6 @@ class Select2 extends HtmlAbstract
     {
         $parent->setClass($parent->getClass() . ' form-control select2');
 
-        if ($parent->getMultiple() !== null) {
-            $parent->setName($parent->getName() . '[]');
-        }
-
         $this->parent = $parent;
         return $this;
     }

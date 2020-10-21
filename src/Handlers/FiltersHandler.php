@@ -16,18 +16,18 @@ class FiltersHandler implements HandlerInterface
         if (isset($elementConfig['filters']) && is_array($elementConfig['filters'])) {
             $htmlAbstract = $payload->getHtmlAbstract();
             foreach ($elementConfig['filters'] as $filter) {
-                $this->resolveFilterObject($filter)->apply($htmlAbstract, $payload->getData());
+                $this->resolveFilterObject($filter, $payload)->apply($htmlAbstract, $payload->getData());
             }
         }
         return $next($payload);
     }
 
-    private function resolveFilterObject($filter): FilterInterface
+    private function resolveFilterObject($filter, Payload $payload): FilterInterface
     {
         if (!class_exists($filter)) {
             throw new InvalidFilterException(sprintf('Filter %s does not exists', $filter));
         }
 
-        return new $filter;
+        return $payload->getContainer()->make($filter);
     }
 }

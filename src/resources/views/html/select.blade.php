@@ -9,7 +9,7 @@
     @if($current_value instanceof \Illuminate\Support\Collection)
         @forelse($values as $value => $title)
             <option
-                    @if($current_value->where('id', $value)->first())
+                    @if($current_value->search($value) !== false)
                     selected
                     @endif
                     value="{{ $value }}">{{ $title }}</option>

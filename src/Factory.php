@@ -4,6 +4,7 @@ namespace Dobrik\LaravelEasyForm;
 
 use Dobrik\LaravelEasyForm\Forms\HtmlAbstract;
 use Dobrik\LaravelEasyForm\Exceptions\InvalidAliasException;
+use \Illuminate\Container\Container;
 
 /**
  * Class Factory
@@ -22,6 +23,15 @@ class Factory
 
         ],
     ];
+    /**
+     * @var Container
+     */
+    protected $container;
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     public function mergeAliases(array $aliases)
     {
@@ -40,7 +50,7 @@ class Factory
         }
 
         $class = $this->aliases[$type][strtolower($alias)];
-        return new $class($this);
+        return $this->container->make($class);
     }
 
     public function __call($name, $arguments)
