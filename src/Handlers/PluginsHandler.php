@@ -14,11 +14,18 @@ class PluginsHandler implements HandlerInterface
         $elementConfig = $payload->getElementConfig();
         if (isset($elementConfig['plugins']) && is_array($elementConfig['plugins'])) {
             $htmlAbstract = $payload->getHtmlAbstract();
-            foreach ($elementConfig['plugins'] as $plugin) {
+            foreach ($elementConfig['plugins'] as $key => $value) {
+                $attributes = [];
+                $plugin = $value;
+                if (is_array($value)) {
+                    $attributes = $value;
+                    $plugin = $key;
+                }
                 $htmlAbstract->append(
                     $payload->getBuilder()
                         ->getFactory()
                         ->plugin($plugin)
+                        ->mergeAttributes($attributes)
                         ->setParent($htmlAbstract)
                 );
             }

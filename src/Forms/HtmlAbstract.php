@@ -166,6 +166,16 @@ abstract class HtmlAbstract
     }
 
     /**
+     * @param array $attributes
+     * @return $this
+     */
+    public function mergeAttributes(array $attributes): HtmlAbstract
+    {
+        $this->attributes = array_merge($this->attributes, $attributes);
+        return $this;
+    }
+
+    /**
      * @return string.
      * @throws \ReflectionException
      * @throws \Throwable
