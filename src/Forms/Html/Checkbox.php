@@ -12,6 +12,7 @@ use Dobrik\LaravelEasyForm\Forms\Interfaces\HasValueInterface;
  */
 class Checkbox extends HtmlAbstract implements HasValueInterface
 {
+    public $attributes = ['value' => '1'];
     /**
      * @var array
      */
@@ -26,14 +27,8 @@ class Checkbox extends HtmlAbstract implements HasValueInterface
         } else {
             $this->unsetChecked();
         }
-        $this->attributes['value'] = '1';
 
         return $this;
-    }
-
-    public function getValue()
-    {
-        return $this->getChecked() ? '1' : null;
     }
 
     /**
