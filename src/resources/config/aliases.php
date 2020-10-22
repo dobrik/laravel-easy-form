@@ -9,6 +9,7 @@ return [
         'form' => \Dobrik\LaravelEasyForm\Forms\Html\Form::class,
         'image' => \Dobrik\LaravelEasyForm\Forms\Html\Image::class,
         'input' => \Dobrik\LaravelEasyForm\Forms\Html\Input::class,
+        'checkbox' => \Dobrik\LaravelEasyForm\Forms\Html\Checkbox::class,
         'select' => \Dobrik\LaravelEasyForm\Forms\Html\Select::class,
         'textarea' => \Dobrik\LaravelEasyForm\Forms\Html\Textarea::class,
         'template' => \Dobrik\LaravelEasyForm\Forms\Html\Template::class,
