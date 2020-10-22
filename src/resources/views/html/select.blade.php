@@ -2,7 +2,7 @@
     <?php $current_value = Illuminate\Support\Arr::pull($attributes ,'value') ?>
     <?php $not_empty = Illuminate\Support\Arr::pull($attributes ,'not_empty', false) ?>
     @if($label = Illuminate\Support\Arr::pull($attributes ,'title'))
-        <label for="{{ $attributes['id'] or $attributes['name'] }}">{{ $label }}</label>
+        <label for="{{ $attributes['id'] ?? $attributes['name'] }}">{{ $label }}</label>
     @endif
     <select @forelse($attributes as $attr_name => $attr_value) {{ $attr_name }}="{{ $attr_value }}" @empty @endforelse >
         @if(!$not_empty) <option></option> @endif
