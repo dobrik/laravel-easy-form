@@ -2,6 +2,7 @@
 
 return [
     'html' => [
+        'custom_html' => \Dobrik\LaravelEasyForm\Forms\Html\CustomHtml::class,
         'div' => \Dobrik\LaravelEasyForm\Forms\Html\Div::class,
         'tab' => \Dobrik\LaravelEasyForm\Forms\Html\Tab::class,
         'tabs' => \Dobrik\LaravelEasyForm\Forms\Html\Tabs::class,

@@ -21,6 +21,7 @@ return [
         ],
         \Dobrik\LaravelEasyForm\Forms\Interfaces\HasContentInterface::class => [
             \Dobrik\LaravelEasyForm\Handlers\ChildHandler::class,
+            \Dobrik\LaravelEasyForm\Handlers\ContentHandler::class
         ],
         \Dobrik\LaravelEasyForm\Forms\Interfaces\HasValueInterface::class => [
             \Dobrik\LaravelEasyForm\Handlers\WrapperClassHandler::class,
