@@ -17,7 +17,10 @@ return [
             \Dobrik\LaravelEasyForm\Handlers\SelectValuesHandler::class
         ],
         \Dobrik\LaravelEasyForm\Forms\Html\Input::class => [
-            \Dobrik\LaravelEasyForm\Handlers\InputTypeHandler::class
+            \Dobrik\LaravelEasyForm\Handlers\TypeHandler::class
+        ],
+        \Dobrik\LaravelEasyForm\Forms\Html\CustomHtml::class => [
+            \Dobrik\LaravelEasyForm\Handlers\TypeHandler::class
         ],
         \Dobrik\LaravelEasyForm\Forms\Interfaces\HasContentInterface::class => [
             \Dobrik\LaravelEasyForm\Handlers\ChildHandler::class,

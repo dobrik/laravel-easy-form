@@ -5,7 +5,7 @@ namespace Dobrik\LaravelEasyForm\Handlers;
 
 use Dobrik\LaravelEasyForm\Handlers\Payload\Payload;
 
-class InputTypeHandler implements HandlerInterface
+class TypeHandler implements HandlerInterface
 {
     public function handle(Payload $payload, \Closure $next): Payload
     {

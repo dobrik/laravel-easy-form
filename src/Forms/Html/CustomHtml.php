@@ -20,7 +20,7 @@ class CustomHtml extends HtmlAbstract implements HasContentInterface
      * @var array
      */
     protected $requiredAttributes = [
-        'content', 'tag'
+        'content', 'type'
     ];
 
     /**
@@ -28,6 +28,6 @@ class CustomHtml extends HtmlAbstract implements HasContentInterface
      */
     public function getData(): array
     {
-        return ['content' => $this->pullContent(), 'tag' => $this->pullTag()];
+        return ['content' => $this->pullContent(), 'type' => $this->pullType()];
     }
 }

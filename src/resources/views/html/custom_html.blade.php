@@ -1,3 +1,3 @@
-<{{ $tag }} @forelse($attributes as $attribute => $value) {{ $attribute }}="{{ $value }}" @empty @endforelse>
+<{{ $type }} @forelse($attributes as $attribute => $value) {{ $attribute }}="{{ $value }}" @empty @endforelse>
     {!! $content !!}
-</{{ $tag }}>
+</{{ $type }}>
