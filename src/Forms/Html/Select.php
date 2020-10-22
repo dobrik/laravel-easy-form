@@ -42,8 +42,7 @@ class Select extends HtmlAbstract implements HasValueInterface
      */
     public function getData(): array
     {
-        if ($this->getValue() instanceof Collection) {
-            $this->setMultiple('multiple');
+        if ($this->getMultiple()) {
             $this->setName($this->getName() . '[]');
         }
 
