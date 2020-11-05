@@ -22,8 +22,9 @@ class FiltersHandler implements HandlerInterface
                     $parameters = $value;
                     $filter = $key;
                 }
-
+                $payload = $next($payload);
                 $this->resolveFilterObject($filter, $payload)->apply($htmlAbstract, $payload->getData(), $parameters);
+                return $payload;
             }
         }
         return $next($payload);

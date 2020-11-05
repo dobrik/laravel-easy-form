@@ -13,7 +13,9 @@ class CallbackHandler implements HandlerInterface
     {
         $elementConfig = $payload->getElementConfig();
         if (isset($elementConfig['callback']) && $elementConfig['callback'] instanceof \Closure) {
+            $payload = $next($payload);
             $elementConfig['callback']($payload->getHtmlAbstract(), $payload->getData());
+            return $payload;
         }
         return $next($payload);
     }
