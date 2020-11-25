@@ -15,6 +15,7 @@ class FiltersHandler implements HandlerInterface
         $elementConfig = $payload->getElementConfig();
         if (isset($elementConfig['filters']) && is_array($elementConfig['filters'])) {
             $htmlAbstract = $payload->getHtmlAbstract();
+            $filters = [];
             foreach ($elementConfig['filters'] as $key => $value) {
                 $parameters = [];
                 $filter = $value;
@@ -22,10 +23,15 @@ class FiltersHandler implements HandlerInterface
                     $parameters = $value;
                     $filter = $key;
                 }
-                $payload = $next($payload);
-                $this->resolveFilterObject($filter, $payload)->apply($htmlAbstract, $payload->getData(), $parameters);
-                return $payload;
+                $filters[] = $this->resolveFilterObject($filter, $payload);
             }
+            $payload = $next($payload);
+            /** @var FilterInterface $filter */
+            foreach ($filters as $filter) {
+                $filter->apply($htmlAbstract, $payload->getData(), $parameters);
+            }
+
+            return $payload;
         }
         return $next($payload);
     }
