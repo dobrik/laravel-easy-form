@@ -10,7 +10,7 @@
     @endif
     <div class="box-header with-border" id="{{ $object->getId() }}">
         <form action="{{ $action }}" method="{{ $method }}"
-              enctype="multipart/form-data">
+        @forelse($attributes as $attr_name => $attr_value) {{ $attr_name }}="{{ $attr_value }}" @empty @endforelse>
             {!! csrf_field() !!}
             {!! $form !!}
             @if(in_array(strtolower($method), ['patch', 'put', 'delete']))

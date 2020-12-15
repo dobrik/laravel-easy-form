@@ -16,7 +16,7 @@ class Form extends HtmlAbstract implements HasContentInterface
     /**
      * @var array
      */
-    public $attributes = ['action' => '?', 'method' => 'post', 'ajax' => false];
+    public $attributes = ['action' => '?', 'method' => 'post', 'enctype' => 'multipart/form-data'];
 
     /**
      * @var array
@@ -31,9 +31,9 @@ class Form extends HtmlAbstract implements HasContentInterface
     public function getData(): array
     {
         return [
-            'form' => $this->getContent(),
-            'method' => $this->getMethod(),
-            'action' => $this->getAction()
+            'form' => $this->pullContent(),
+            'method' => $this->pullMethod(),
+            'action' => $this->pullAction()
         ];
     }
 }
