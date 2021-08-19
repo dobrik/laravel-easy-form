@@ -3,6 +3,7 @@
 namespace Dobrik\LaravelEasyForm\Forms;
 
 use Dobrik\LaravelEasyForm\Factory;
+use Dobrik\LaravelEasyForm\Handlers\Payload\Payload;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
@@ -24,6 +25,9 @@ abstract class HtmlAbstract
 
     /** @var array */
     protected $appended = [];
+
+    /** @var Payload */
+    protected $payload;
 
     /** @var array */
     protected $requiredAttributes = [];
@@ -204,5 +208,23 @@ abstract class HtmlAbstract
     public function getParent(): ?HtmlAbstract
     {
         return $this->parent;
+    }
+
+    /**
+     * @return Payload
+     */
+    public function getPayload(): Payload
+    {
+        return $this->payload;
+    }
+
+    /**
+     * @param Payload $payload
+     * @return HtmlAbstract
+     */
+    public function setPayload(Payload $payload): HtmlAbstract
+    {
+        $this->payload = $payload;
+        return $this;
     }
 }

@@ -140,11 +140,11 @@ class Builder
             $elementConfig
         );
 
+        $payload = new Payload($this->getContainer(), $htmlAbstract, $this, $elementConfig, $data);
+        $htmlAbstract->setPayload($payload);
         $pipeline = new Pipeline($this->container);
         return $pipeline
-            ->send(
-                new Payload($this->getContainer(), $htmlAbstract, $this, $elementConfig, $data)
-            )
+            ->send($payload)
             ->via('handle')
             ->through(
                 $this->getHandlersFor($htmlAbstract)
