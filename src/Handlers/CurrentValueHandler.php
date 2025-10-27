@@ -13,7 +13,7 @@ class CurrentValueHandler implements HandlerInterface
         if (!empty($payload->getData())) {
             $htmlAbstract = $payload->getHtmlAbstract();
             $value = $this->getFieldValue($htmlAbstract->getName(), $payload->getData());
-            if(!empty($value)) {
+            if(isset($value)) {
                 $htmlAbstract->setValue($value);
             }
         }

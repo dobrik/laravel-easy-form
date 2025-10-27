@@ -12,7 +12,7 @@ class OldValueHandler implements HandlerInterface
     {
         $htmlAbstract = $payload->getHtmlAbstract();
         $oldValue = $payload->getContainer()->make(Request::class)->old(arrayToDot($htmlAbstract->getName()));
-        if (!empty($oldValue)) {
+        if (isset($oldValue)) {
             $htmlAbstract->setValue($oldValue);
         }
 
